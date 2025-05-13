@@ -709,6 +709,17 @@ func (c *ConfigMapUnpacker) ensureJob(cmRef *corev1.ObjectReference, bundlePath 
 		}
 	}
 
+	// XXX: There are cloud providers (e.g. GKE autopilot clusters) that
+	// include mutating webhooks (e.g. autopilot-default-resources-mutator)
+	// that automatically add resource requests to jobs, deployments, etc.
+	// This causes the job spec to be different from the one we created. In
+	// order to avoid the job being deleted and recreated in an infinite loop,
+	// we copy the resource requests from the job's spec to the fresh job's
+	// spec, thus accepting the mutating webhook's changes as the new spec.
+	// See the issue for more details:
+	// https://github.com/operator-framework/operator-lifecycle-manager/issues/2976
+	fresh.Spec.Template.Spec.Containers[0].Resources = job.Spec.Template.Spec.Containers[0].Resources
+
 	if equality.Semantic.DeepDerivative(fresh.GetOwnerReferences(), job.GetOwnerReferences()) && equality.Semantic.DeepDerivative(fresh.Spec, job.Spec) {
 		return
 	}
