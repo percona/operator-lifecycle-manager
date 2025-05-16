@@ -1,5 +1,0 @@
-packageName: test-package
-channels:
-  - name: stable
-    currentCSV: example-operator.v0.2.0
-defaultChannel: stable
