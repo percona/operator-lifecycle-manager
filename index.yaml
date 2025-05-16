@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  operator-lifecycle-manager:
+  - apiVersion: v2
+    appVersion: 0.31.0
+    created: "2025-05-16T10:24:25.552417232Z"
+    description: A Helm chart for Operator Lifecycle Manager (OLM).
+    digest: bbb952202b87f9c6e5fa50e5c83b97eb9c27a75db06bffaf04e30a3b52219a39
+    name: operator-lifecycle-manager
+    type: application
+    urls:
+    - https://github.com/percona/operator-lifecycle-manager/releases/download/operator-lifecycle-manager-0.1.0/operator-lifecycle-manager-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-05-16T10:24:25.552427422Z"
